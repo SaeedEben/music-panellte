@@ -1,0 +1,1377 @@
+{
+	"info": {
+		"_postman_id": "888f53de-9c8a-4276-a839-6490626d912e",
+		"name": "Music",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Music",
+			"item": [
+				{
+					"name": "Genre",
+					"item": [
+						{
+							"name": "IndexShow",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/music/genre",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"genre"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/music/genre/1",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"genre",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Store",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept-Language",
+										"value": "fa",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name[fa]",
+											"value": "رپ",
+											"type": "text"
+										},
+										{
+											"key": "name[en]",
+											"value": "rap",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{domain}}/music/genre",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"genre"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name[fa]",
+											"value": "رپ",
+											"type": "text"
+										},
+										{
+											"key": "name[en]",
+											"value": "Rap",
+											"type": "text"
+										},
+										{
+											"key": "_method",
+											"value": "put",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{domain}}/music/genre/1",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"genre",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "_method",
+											"value": "delete",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{domain}}/music/genre/1",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"genre",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/music/genre/list",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"genre",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Restore",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept-Language",
+										"type": "text",
+										"value": "en"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{domain}}/music/genre/1/restore",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"genre",
+										"1",
+										"restore"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Category",
+					"item": [
+						{
+							"name": "Index",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/music/category",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"category"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/music/category/1",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"category",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/music/category/list",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"category",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Store",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name[fa]",
+											"value": "غمگین",
+											"type": "text"
+										},
+										{
+											"key": "name[en]",
+											"value": "sad",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{domain}}/music/category",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"category"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept-Language",
+										"value": "fa",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name[fa]",
+											"value": "رقص",
+											"type": "text"
+										},
+										{
+											"key": "name[en]",
+											"value": "dance",
+											"type": "text"
+										},
+										{
+											"key": "_method",
+											"value": "put",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{domain}}/music/category/1",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"category",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "_method",
+											"value": "delete",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{domain}}/music/category/1",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"category",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Restore",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{domain}}/music/category/1/restore",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"category",
+										"1",
+										"restore"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Artist",
+					"item": [
+						{
+							"name": "Index",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept-Language",
+										"value": "fa",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/music/artist",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"artist"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/music/artist/1",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"artist",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/music/artist/list",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"artist",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Store",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name[fa]",
+											"value": "محسن",
+											"type": "text"
+										},
+										{
+											"key": "name[en]",
+											"value": "mohsen",
+											"type": "text"
+										},
+										{
+											"key": "biography",
+											"value": "akharin",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{domain}}/music/artist",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"artist"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept-Language",
+										"value": "fa",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name[fa]",
+											"value": "ابی",
+											"type": "text"
+										},
+										{
+											"key": "name[en]",
+											"value": "ebi",
+											"type": "text"
+										},
+										{
+											"key": "biography",
+											"value": "setarehaye sorbi",
+											"type": "text"
+										},
+										{
+											"key": "_method",
+											"value": "put",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{domain}}/music/artist/1",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"artist",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "_method",
+											"value": "delete\n",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{domain}}/music/artist/1",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"artist",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Restore",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{domain}}/music/artist/1/restore",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"artist",
+										"1",
+										"restore"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Album",
+					"item": [
+						{
+							"name": "Index",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept-Language",
+										"value": "fa",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/music/album",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"album"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept-Language",
+										"type": "text",
+										"value": "fa"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/music/album/1",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"album",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Store",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name[fa]",
+											"value": "یه چی بینشه",
+											"type": "text"
+										},
+										{
+											"key": "name[en]",
+											"value": "somthing throw",
+											"type": "text"
+										},
+										{
+											"key": "release_at",
+											"value": "2019-10-13",
+											"type": "text"
+										},
+										{
+											"key": "number_of_track",
+											"value": "10",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{domain}}/music/album",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"album"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept-Language",
+										"value": "fa",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "_method",
+											"value": "put",
+											"type": "text"
+										},
+										{
+											"key": "name[fa]",
+											"value": "پرندگان عشق باورنکردنی",
+											"type": "text"
+										},
+										{
+											"key": "name[en]",
+											"value": "bird of unblieveable love ",
+											"type": "text"
+										},
+										{
+											"key": "released_at",
+											"value": "now",
+											"type": "text"
+										},
+										{
+											"key": "number_of_track",
+											"value": "11",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{domain}}/music/album/1",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"album",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept-Language",
+										"type": "text",
+										"value": "en"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "_method",
+											"value": "delete",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{domain}}/music/album/5",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"album",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Restore",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/music/album/1/restore",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"album",
+										"1",
+										"restore"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/music/album/list",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"album",
+										"list"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Song",
+					"item": [
+						{
+							"name": "Store",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept-Language",
+										"value": "fa",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name[fa]",
+											"value": "شوآیوم",
+											"type": "text"
+										},
+										{
+											"key": "name[en]",
+											"value": "sho ayom",
+											"type": "text"
+										},
+										{
+											"key": "lyric",
+											"value": "اگه همسایه ها بیدار باشن برای آتیش قلیون می آیوم",
+											"type": "text"
+										},
+										{
+											"key": "duration",
+											"value": "3:3",
+											"type": "text"
+										},
+										{
+											"key": "release_at",
+											"value": "2019-12-07 19:12:41",
+											"type": "text"
+										},
+										{
+											"key": "category_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "album_id",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{domain}}/music/song",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"song"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Index",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/music/song",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"song"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/music/song/1",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"song",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/music/song/list",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"song",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name[fa]",
+											"value": "شوآیوم",
+											"type": "text"
+										},
+										{
+											"key": "name[en]",
+											"value": "sho ayom",
+											"type": "text"
+										},
+										{
+											"key": "lyric",
+											"value": "قایقی خواهم ساخت",
+											"type": "text"
+										},
+										{
+											"key": "duration",
+											"value": "3:3",
+											"type": "text"
+										},
+										{
+											"key": "release_at",
+											"value": "2019-12-07 19:12:41",
+											"type": "text"
+										},
+										{
+											"key": "_method",
+											"value": "put",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{domain}}/music/song/1",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"song",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "_method",
+											"value": "delete",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{domain}}/music/song/1",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"song",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Restore",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{domain}}/music/song/1/restore",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"music",
+										"song",
+										"1",
+										"restore"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "saeed@eben.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{domain}}/login",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{domain}}/logout",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"variable": [
+		{
+			"id": "3635e065-de23-456a-bb2b-93e54d4b036e",
+			"key": "domain",
+			"value": "http://localhost:8000",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
