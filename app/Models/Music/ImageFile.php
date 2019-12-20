@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  */
 
-class File extends Model
+class ImageFile extends Model
 {
     protected $fillable = ['image_path'];
 

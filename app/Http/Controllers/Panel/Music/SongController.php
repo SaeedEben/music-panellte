@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Panel\Music;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Music\Song\SongIndexResource;
 use App\Http\Resources\Music\Song\SongShowResource;
-use App\Models\Music\Album;use App\Models\Music\Category;use App\Models\Music\Genre;use App\Models\Music\Song;
+use App\Models\Music\Album;use App\Models\Music\Artist;use App\Models\Music\Category;use App\Models\Music\Genre;use App\Models\Music\ImageFile;use App\Models\Music\Song;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\Response;
+use Illuminate\Http\Response;use phpDocumentor\Reflection\File;
 
 class SongController extends Controller
 {
@@ -46,14 +46,6 @@ class SongController extends Controller
             ];
             $song->setTranslations('name', $translations);
             $song->fill($request->all());
-            $song->save();
-
-            $esm = $request->file('songname')->getClientOriginalName();
-            $storage = storage_path("app/public/music/{$esm}");
-            $request->file('songname')->move('storage/musics' , $esm);
-
-            $song->music_path = $storage;
-            dd($storage);
 
             // ------------------- assign category ------------------------
 
@@ -65,10 +57,31 @@ class SongController extends Controller
             $albid = explode('.' , $request->album);
             $song->album_id    = $albid[0];
 
+
+            $song->save();
+
+            // ------------------- attaching file ------------------------
+
+            $esm = $request->file('songname')->getClientOriginalName();
+            $storage = storage_path("app/public/music/{$esm}");
+            $request->file('songname')->move('storage/musics' , $esm);
+
+            $file = new ImageFile();
+            $file->image_path = $storage;
+            $file->save();
+
+            $song->files()->attach($file->id);
+
+
             // ------------------- attaching genre ------------------------
 
             $genid = explode('.' , $request->genre);
             $song->genres()->attach($genid[0]);
+
+            // ------------------- attaching artist ------------------------
+
+            $artid = explode('.' , $request->artist);
+            $song->genres()->attach($artid[0]);
 
 
             \DB::commit();
@@ -199,6 +212,7 @@ class SongController extends Controller
         $genre = Genre::all();
         $category = Category::all();
         $album = Album::all();
-        return view('song.create' , compact('genre' , 'category' , 'album'));
+        $artist = Artist::all();
+        return view('song.create' , compact('genre' , 'category' , 'album' , 'artist'));
     }
 }

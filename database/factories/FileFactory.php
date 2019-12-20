@@ -2,10 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\Music\File;
+use App\Models\Music\iFile;
 use Faker\Generator as Faker;
 
-$factory->define(File::class, function (Faker $faker) {
+$factory->define(iFile::class, function (Faker $faker) {
     return [
         //
     ];

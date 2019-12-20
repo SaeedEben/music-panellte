@@ -30,7 +30,7 @@ class CreateAlbumsTable extends Migration
             $table->foreign('album_id')->references('id')->on('albums')->onDelete('cascade');
 
             $table->bigInteger('file_id')->unsigned();
-            $table->foreign('file_id')->references('id')->on('files')->onDelete('cascade');
+            $table->foreign('file_id')->references('id')->on('image_files')->onDelete('cascade');
 
         });
     }

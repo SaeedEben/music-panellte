@@ -44,6 +44,6 @@ class Artist extends Model
 
     public function files()
     {
-        return $this->belongsToMany(File::class);
+        return $this->belongsToMany(ImageFile::class);
     }
 }

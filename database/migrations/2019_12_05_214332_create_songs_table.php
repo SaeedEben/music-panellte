@@ -61,7 +61,7 @@ class CreateSongsTable extends Migration
             $table->foreign('song_id')->references('id')->on('songs')->onDelete('cascade');
 
             $table->bigInteger('file_id')->unsigned();
-            $table->foreign('file_id')->references('id')->on('files')->onDelete('cascade');
+            $table->foreign('file_id')->references('id')->on('image_files')->onDelete('cascade');
 
         });
     }
