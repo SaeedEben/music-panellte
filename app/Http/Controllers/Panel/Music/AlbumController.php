@@ -8,8 +8,8 @@ use App\Http\Requests\Music\Album\UpdateAlbumRequest;
 use App\Http\Resources\Music\Album\AlbumIndexResource;
 use App\Http\Resources\Music\Album\AlbumShowResource;
 use App\Models\Music\Album;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Http\RedirectResponse;use Illuminate\Http\Request;
+use Illuminate\Http\Response;use Illuminate\Routing\Redirector;
 
 class AlbumController extends Controller
 {
@@ -20,9 +20,18 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        $album = Album::paginate();
+        $pure_data = Album::paginate();
+        $obj = AlbumIndexResource::collection($pure_data)->resource;
+        $albums = json_decode(json_encode($obj))->data;
+        return view('album/index' , compact('albums'));
+    }
 
-        return AlbumIndexResource::collection($album);
+
+    public function edit(Album $album)
+    {
+        $obj = new AlbumIndexResource($album);
+        $album = json_decode(json_encode($obj),true);
+        return view('album.update' , compact('album'));
     }
 
     /**
@@ -30,7 +39,7 @@ class AlbumController extends Controller
      *
      * @param StoreAlbumRequest $request
      *
-     * @return Response|array
+     * @return RedirectResponse|Redirector|array
      */
     public function store(StoreAlbumRequest $request)
     {
@@ -49,10 +58,7 @@ class AlbumController extends Controller
 
             \DB::commit();
 
-            return [
-                'success' => true,
-                'message' => trans('responses.panel.music.message.store'),
-            ];
+            return redirect('music/album');
 
         }catch(\Exception $exception){
             \DB::rollBack();
@@ -82,7 +88,7 @@ class AlbumController extends Controller
      * @param UpdateAlbumRequest $request
      * @param Album              $album
      *
-     * @return array
+     * @return RedirectResponse|Redirector|array
      */
     public function update(UpdateAlbumRequest $request, Album $album)
     {
@@ -99,10 +105,7 @@ class AlbumController extends Controller
 
             \DB::commit();
 
-            return [
-                'success' => true,
-                'message' => trans('responses.panel.music.message.update'),
-            ];
+            return redirect('music/album');
         }catch (\Exception $exception){
             \DB::rollBack();
             return [
@@ -118,7 +121,7 @@ class AlbumController extends Controller
      *
      * @param Album $album
      *
-     * @return Response|array
+     * @return RedirectResponse|Redirector|array
      * @throws \Exception
      */
     public function destroy(Album $album)
@@ -126,10 +129,7 @@ class AlbumController extends Controller
         try {
             $album->delete();
 
-            return [
-                'success' => true,
-                'message' => trans('responses.panel.music.message.delete'),
-            ];
+            return redirect('music/album');
         }catch (\Exception $exception){
             return [
                 'success' => false,
@@ -144,18 +144,15 @@ class AlbumController extends Controller
      *
      * @param $id
      *
-     * @return Response|array
+     * @return RedirectResponse|Redirector|array
      */
-    public function restore($id)
+    public function restore(Request $request)
     {
 
         try {
-            Album::onlyTrashed()->findOrFail($id)->restore();
+            Album::onlyTrashed()->findOrFail($request->id)->restore();
 
-            return [
-                'success' => true,
-                'message' => trans('responses.panel.music.message.restore'),
-            ];
+            return redirect('music/album');
 
         }catch (\Exception $exception){
 

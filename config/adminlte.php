@@ -217,7 +217,7 @@ return [
                 ],
                 [
                     'text' => 'Album',
-                    'url'  => '#',
+                    'url'  => '/music/album',
                     'icon_color' => 'yellow',
                 ],
                 [

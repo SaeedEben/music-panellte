@@ -44,6 +44,6 @@ class Artist extends Model
 
     public function files()
     {
-        return $this->morphMany(File::class, 'fileable');
+        return $this->belongsToMany(File::class);
     }
 }

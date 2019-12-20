@@ -46,11 +46,22 @@ class CreateSongsTable extends Migration
         });
 
         Schema::create('song_artist', function (Blueprint $table) {
+
             $table->bigInteger('song_id')->unsigned();
             $table->foreign('song_id')->references('id')->on('songs')->onDelete('cascade');
 
             $table->bigInteger('artist_id')->unsigned();
             $table->foreign('artist_id')->references('id')->on('artists')->onDelete('cascade');
+
+        });
+
+        Schema::create('song_file', function (Blueprint $table) {
+
+            $table->bigInteger('song_id')->unsigned();
+            $table->foreign('song_id')->references('id')->on('songs')->onDelete('cascade');
+
+            $table->bigInteger('file_id')->unsigned();
+            $table->foreign('file_id')->references('id')->on('files')->onDelete('cascade');
 
         });
     }
@@ -63,5 +74,8 @@ class CreateSongsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('songs');
+        Schema::dropIfExists('song_file');
+        Schema::dropIfExists('song_artist');
+        Schema::dropIfExists('song_genre');
     }
 }

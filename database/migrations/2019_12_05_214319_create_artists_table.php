@@ -23,6 +23,15 @@ class CreateArtistsTable extends Migration
             $table->softDeletes();
         });
 
+        Schema::create('artist_file', function (Blueprint $table) {
+
+            $table->bigInteger('artist_id')->unsigned();
+            $table->foreign('artist_id')->references('id')->on('artists')->onDelete('cascade');
+
+            $table->bigInteger('file_id')->unsigned();
+            $table->foreign('file_id')->references('id')->on('files')->onDelete('cascade');
+
+        });
     }
 
 
@@ -34,7 +43,7 @@ class CreateArtistsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('artists');
-        Schema::dropIfExists('song_artist');
+        Schema::dropIfExists('artist_file');
 
     }
 }

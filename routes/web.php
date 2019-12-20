@@ -34,8 +34,12 @@ Route::group(['namespace' => 'Panel'], function () {
 
         // ------------------- Album ------------------------
 
+        Route::get('/album/create', function () {
+            return view('album.create');
+        });
+        Route::get('/updatealbum/{album}' , 'AlbumController@edit');
         Route::get('/album/list', 'AlbumController@list');
-        Route::post('/album/{id}/restore', 'AlbumController@restore');
+        Route::post('/album/restore', 'AlbumController@restore');
         Route::apiResource('/album', 'AlbumController');
 
 

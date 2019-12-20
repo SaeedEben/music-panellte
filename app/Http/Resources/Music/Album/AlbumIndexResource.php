@@ -24,6 +24,7 @@ class AlbumIndexResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id'              => $this->id,
             'name_fa'         => $this->getTranslation('name', 'fa'),
             'name_en'         => $this->getTranslation('name', 'en'),
             'number_of_track' => $this->number_of_track,

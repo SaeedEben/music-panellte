@@ -76,6 +76,11 @@ class Song extends Model
         return $this->belongsToMany(Artist::class);
     }
 
+    public function files()
+    {
+        return $this->belongsToMany(File::class);
+    }
+
     public function playlists()
     {
         return $this->belongsToMany(Playlist::class);
@@ -99,10 +104,6 @@ class Song extends Model
         return $this->morphMany(Like::class, 'likable');
     }
 
-    public function files()
-    {
-        return $this->morphMany(File::class, 'fileable');
-    }
 
     public function comments()
     {

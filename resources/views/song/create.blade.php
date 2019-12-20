@@ -49,6 +49,14 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="col">
+                                <label>Album</label>
+                                <select class="form-control form-control-sm" name="album">
+                                    @foreach($album as $alb)
+                                        <option>{{$alb->id}}.{{$alb->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                         <br>
                         <div class="form-group">

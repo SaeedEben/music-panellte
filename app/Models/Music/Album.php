@@ -43,4 +43,9 @@ class Album extends Model
         return $this->hasMany(Song::class);
     }
 
+    public function files()
+    {
+        return $this->belongsToMany(File::class);
+    }
+
 }

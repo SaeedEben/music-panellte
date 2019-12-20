@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Panel\Music;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Music\Song\SongIndexResource;
 use App\Http\Resources\Music\Song\SongShowResource;
-use App\Models\Music\Category;use App\Models\Music\Genre;use App\Models\Music\Song;
+use App\Models\Music\Album;use App\Models\Music\Category;use App\Models\Music\Genre;use App\Models\Music\Song;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
@@ -45,20 +45,35 @@ class SongController extends Controller
                 'fa' => $request->name['fa'],
             ];
             $song->setTranslations('name', $translations);
+            $song->fill($request->all());
+            $song->save();
+
             $esm = $request->file('songname')->getClientOriginalName();
             $storage = storage_path("app/public/music/{$esm}");
             $request->file('songname')->move('storage/musics' , $esm);
 
             $song->music_path = $storage;
-            $song->fill($request->all());
+            dd($storage);
+
+            // ------------------- assign category ------------------------
+
             $catid = explode('.' , $request->category);
             $song->category_id = $catid[0];
-            $song->album_id    = 1;
-            $song->save();
+
+            // ------------------- assign album ------------------------
+
+            $albid = explode('.' , $request->album);
+            $song->album_id    = $albid[0];
+
+            // ------------------- attaching genre ------------------------
+
             $genid = explode('.' , $request->genre);
             $song->genres()->attach($genid[0]);
+
+
             \DB::commit();
             return redirect('music/song');
+
         }catch (\Exception $exception){
             \DB::rollBack();
 
@@ -183,6 +198,7 @@ class SongController extends Controller
     {
         $genre = Genre::all();
         $category = Category::all();
-        return view('song.create' , compact('genre' , 'category'));
+        $album = Album::all();
+        return view('song.create' , compact('genre' , 'category' , 'album'));
     }
 }
