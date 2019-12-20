@@ -212,7 +212,7 @@ return [
                 ],
                 [
                     'text'    => 'Artists',
-                    'url'     => '#',
+                    'url'     => '/music/artist',
                     'icon_color' => 'purple',
                 ],
                 [

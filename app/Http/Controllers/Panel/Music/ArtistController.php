@@ -6,7 +6,7 @@ use App\Http\Requests\Music\Category\StoreCategoryRequest;
 use App\Http\Resources\Music\Artist\ArtistIndexResource;
 use App\Http\Resources\Music\Artist\ArtistShowResource;
 use App\Models\Music\Artist;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;use Illuminate\Http\Request;use Illuminate\Routing\Redirector;
 
 /**
  * Class ArtistController
@@ -25,20 +25,11 @@ class ArtistController extends Controller
      */
     public function index()
     {
-//        cache()->remember('artists', now()->addSeconds(5), function (){
-//            $artist = Artist::paginate();
-//
-//            return ArtistIndexResource::collection($artist);
-//        });
+        $pure_data = Artist::paginate();
+        $obj = ArtistIndexResource::collection($pure_data)->resource;
+        $artists = json_decode(json_encode($obj))->data;
+        return view('artist.index' , compact('artists'));
 
-        if (cache()->has('artists')){
-            return cache()->pull('artists');
-        }
-        $artist = Artist::paginate();
-
-        cache()->put('artists', $artist , now()->addSeconds(2));
-
-        return ArtistIndexResource::collection($artist);
     }
 
     /**
@@ -46,7 +37,7 @@ class ArtistController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response|array
+     * @return RedirectResponse|Redirector|array
      */
     public function store(StoreCategoryRequest $request)
     {
@@ -69,10 +60,7 @@ class ArtistController extends Controller
             $artist->save();
 
             \DB::commit();
-            return [
-                'success' => true,
-                'message' => trans('responses.panel.music.message.store'),
-            ];
+            return redirect('music/artist');
         }catch (\Exception $exception){
             \DB::rollBack();
 
@@ -92,7 +80,16 @@ class ArtistController extends Controller
      */
     public function show(Artist $artist)
     {
-        return new ArtistShowResource($artist);
+//        $artist = new ArtistShowResource($artist);
+//        return view('artist.show' , compact('artist'));
+    }
+
+
+    public function edit(Artist $artist)
+    {
+        $obj = new ArtistIndexResource($artist);
+        $artist = json_decode(json_encode($obj),true);
+        return view('artist.update' , compact('artist'));
     }
 
 
@@ -102,7 +99,7 @@ class ArtistController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param Artist                   $artist
      *
-     * @return \Illuminate\Http\Response|array
+     * @return RedirectResponse|Redirector|array
      */
     public function update(Request $request, Artist $artist)
     {
@@ -120,16 +117,13 @@ class ArtistController extends Controller
             $artist->save();
 
             \DB::commit();
-            return [
-                'success' => true,
-                'message' => trans('responses.panel.music.message.update'),
-            ];
+            return redirect('music/artist');
         }catch (\Exception $exception){
             \DB::rollBack();
 
             return [
-               'success' => false,
-               'message' => $exception->getMessage(),
+                'success' => false,
+                'message' => $exception->getMessage(),
             ];
         }
     }
@@ -139,7 +133,7 @@ class ArtistController extends Controller
      *
      * @param Artist $artist
      *
-     * @return void|array
+     * @return RedirectResponse|Redirector|array
      * @throws \Exception
      */
     public function destroy(Artist $artist)
@@ -147,10 +141,7 @@ class ArtistController extends Controller
         try {
             $artist->delete();
 
-            return [
-                'success' => true,
-                'message' => trans('responses.panel.music.message.delete'),
-            ];
+            return redirect('music/artist');
         }catch (\Exception $exception){
             return [
                 'success' => false,
@@ -162,20 +153,16 @@ class ArtistController extends Controller
     /**
      * Restore the specified resource from storage.
      *
-     * @param $id
-     *
-     * @return void|array
-     * @throws \Exception
-     */
-    public function restore($id)
+* @param Request $request
+*
+* @return RedirectResponse|Redirector|array
+*/
+    public function restore(Request $request)
     {
         try {
-            Artist::onlyTrashed()->findOrFail($id)->restore();
+            Artist::onlyTrashed()->findOrFail($request->id)->restore();
 
-            return [
-                'success' => true,
-                'message' => trans('responses.panel.music.message.restore'),
-            ];
+            return redirect('music/artist');
 
         }catch (\Exception $exception){
             return [

@@ -25,6 +25,7 @@ class ArtistIndexResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id'         => $this->id,
             'name_fa'    => $this->getTranslation('name', 'fa'),
             'name_en'    => $this->getTranslation('name', 'en'),
             'name'       => $this->getTranslations('name'),

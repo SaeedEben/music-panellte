@@ -61,8 +61,12 @@ Route::group(['namespace' => 'Panel'], function () {
 
         // ------------------- Artist ------------------------
 
+        Route::get('/artist/create', function () {
+            return view('artist.create');
+        });
+        Route::get('/updateart/{artist}' , 'ArtistController@edit');
         Route::get('/artist/list', 'ArtistController@list');
-        Route::post('/artist/{id}/restore', 'ArtistController@restore');
+        Route::post('/artist/restore', 'ArtistController@restore');
         Route::apiResource('/artist', 'ArtistController');
 
 
