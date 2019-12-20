@@ -27,8 +27,8 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @endif
 
-    <link rel="stylesheet" href="css/custom.css">
-    <link rel="stylesheet" href="css/bootstrap/bootstrap-rtl.css">
+    <link rel="stylesheet" href="{{ asset('css/custom.css')}}">
+    <link rel="stylesheet" href="{{asset('css/bootstrap/bootstrap-rtl.css')}}">
 </head>
 <body class="@yield('classes_body')" @yield('body_data') dir="rtl">
 

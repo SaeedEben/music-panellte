@@ -16,12 +16,14 @@ class SongIndexResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function toArray($request)
     {
         return [
+            'id'         => $this->id,
             'name_fa'    => $this->getTranslation('name', 'fa'),
             'name_en'    => $this->getTranslation('name', 'en'),
             'release_at' => $this->release_at,
