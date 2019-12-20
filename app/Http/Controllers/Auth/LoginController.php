@@ -40,17 +40,11 @@ class LoginController extends Controller
 
     public function authenticated(Request $request , $user)
     {
-        return[
-            'success' => true,
-            'message' => 'خوش آمدید'
-        ];
+        return view('/home');
     }
 
     public function loggedOut(Request $request)
     {
-        return [
-            'success' => true,
-            'message' => 'به امید دیدار'
-        ];
+        return redirect('/login');
     }
 }

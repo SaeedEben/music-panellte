@@ -23,8 +23,9 @@ class CategoryIndexResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'name_fa' => $this->getTranslation('name' , 'fa'),
-            'name_en' => $this->getTranslation('name' , 'en'),
+            'id'      => $this->id,
+            'name_fa' => $this->getTranslation('name', 'fa'),
+            'name_en' => $this->getTranslation('name', 'en'),
         ];
     }
 }

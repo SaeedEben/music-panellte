@@ -8,7 +8,7 @@ use App\Http\Requests\Music\Genre\UpdateGenreRequest;
 use App\Http\Resources\Music\Genre\GenreIndexResource;
 use App\Http\Resources\Music\Genre\GenreShowResource;
 use App\Models\Music\Genre;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;use Illuminate\Http\Request;use Illuminate\Routing\Redirector;
 
 class GenreController extends Controller
 {
@@ -19,21 +19,22 @@ class GenreController extends Controller
      */
     public function index()
     {
-        $genre = Genre::paginate();
-        return GenreIndexResource::collection($genre);
+        $pure_data = Genre::paginate();
+        $obj = GenreIndexResource::collection($pure_data)->resource;
+        $genres = json_decode(json_encode($obj))->data;
+        return view('genre.index' , compact('genres' , 'pure_data'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param StoreGenreRequest $request
      *
-     * @return \Illuminate\Http\Response|array
+     * @return RedirectResponse|Redirector|array
      */
     public function store(StoreGenreRequest $request)
     {
         \DB::beginTransaction();
-
         try {
             $genre = new Genre();
 
@@ -45,13 +46,9 @@ class GenreController extends Controller
             $genre->setTranslations('name', $translations);
 
             $genre->fill($request->all());
-//        $genre->songs()->attach(1);
             $genre->save();
             \DB::commit();
-            return [
-                'success' => true,
-                'message' => trans('responses.panel.music.message.store'),
-            ];
+            return redirect('music/genre');
 
         } catch (\Exception $exception) {
             \DB::rollBack();
@@ -75,13 +72,20 @@ class GenreController extends Controller
         return new GenreShowResource($genre);
     }
 
+    public function edit(Genre $genre)
+    {
+        $obj = new GenreIndexResource($genre);
+        $genre = json_decode(json_encode($obj),true);
+        return view('genre.update' , compact('genre'));
+    }
+
     /**
      * Update the specified resource in storage.
      *
      * @param UpdateGenreRequest $request
      * @param Genre              $genre
      *
-     * @return array
+     * @return RedirectResponse|Redirector|array
      */
     public function update(UpdateGenreRequest $request, Genre $genre)
     {
@@ -99,10 +103,7 @@ class GenreController extends Controller
 
             \DB::commit();
 
-            return [
-                'success' => true,
-                'message' => trans('responses.panel.music.message.update'),
-            ];
+            return redirect('music/genre');
 
         } catch (\Exception $exception) {
             \DB::rollBack();
@@ -119,17 +120,14 @@ class GenreController extends Controller
      *
      * @param Genre $genre
      *
-     * @return void|array
+     * @return RedirectResponse|Redirector|array
      * @throws \Exception
      */
     public function destroy(Genre $genre)
     {
         try {
             $genre->delete();
-            return [
-                'success' => true,
-                'message' => trans('responses.panel.music.message.delete'),
-            ];
+            return redirect('music/genre');
         } catch (\Exception $exception) {
             return [
                 'success' => false,
@@ -141,23 +139,19 @@ class GenreController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
+     * @param Request $request
      *
-     * @return void|array
-     * @throws \Exception
+     * @return RedirectResponse|Redirector|array
      */
-    public function restore($id)
+    public function restore(Request $request)
     {
         \DB::beginTransaction();
         try {
-            Genre::onlyTrashed()->findOrFail($id)->restore();
+            Genre::onlyTrashed()->findOrFail($request->id)->restore();
 
             \DB::commit();
 
-            return [
-                'success' => true,
-                'message' => trans('responses.panel.music.message.delete'),
-            ];
+            return redirect('music/genre');
 
         } catch (\Exception $exception) {
             \DB::rollBack();

@@ -222,12 +222,12 @@ return [
                 ],
                 [
                     'text' => 'Genre',
-                    'url'  => '#',
+                    'url'  => '/music/genre',
                     'icon_color' => 'black',
                 ],
                 [
                     'text' => 'Category',
-                    'url'  => '#',
+                    'url'  => '/music/category',
                     'icon_color' => 'green',
                 ],
             ],

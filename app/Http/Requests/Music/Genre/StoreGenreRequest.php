@@ -33,8 +33,8 @@ class StoreGenreRequest extends FormRequest
     {
         $rules = ['name'];
 
-        foreach (['en' , 'fa'] as $locale){
-            $rules["name{$locale}"] = 'required|min:2';
+        foreach (['en' , 'fa'] as $genre){
+            $rules["name.{$genre}"] = 'required|min:3';
         }
 
         return $rules;

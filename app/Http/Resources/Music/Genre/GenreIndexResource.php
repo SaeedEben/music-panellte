@@ -17,14 +17,16 @@ class GenreIndexResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function toArray($request)
     {
         return [
-            'name_fa' => $this->getTranslation('name' , 'fa'),
-            'name_en' => $this->getTranslation('name' , 'en'),
+            'id'      => $this->id,
+            'name_fa' => $this->getTranslation('name', 'fa'),
+            'name_en' => $this->getTranslation('name', 'en'),
         ];
     }
 }

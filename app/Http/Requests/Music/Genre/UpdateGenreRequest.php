@@ -26,7 +26,7 @@ class UpdateGenreRequest extends FormRequest
         $rules = ['name'];
 
         foreach (['en' , 'fa'] as $locale){
-            $rules["name{$locale}"] = 'required|min:2';
+            $rules["name.{$locale}"] = 'required|min:2';
         }
 
         return $rules;
