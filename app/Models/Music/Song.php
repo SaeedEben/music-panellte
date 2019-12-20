@@ -76,9 +76,9 @@ class Song extends Model
         return $this->belongsToMany(Artist::class);
     }
 
-    public function files()
+    public function photos()
     {
-        return $this->belongsToMany(ImageFile::class);
+        return $this->belongsToMany(Photo::class);
     }
 
     public function playlists()

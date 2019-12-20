@@ -24,13 +24,13 @@ class CreateAlbumsTable extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('album_file', function (Blueprint $table) {
+        Schema::create('album_photo', function (Blueprint $table) {
 
             $table->bigInteger('album_id')->unsigned();
             $table->foreign('album_id')->references('id')->on('albums')->onDelete('cascade');
 
-            $table->bigInteger('file_id')->unsigned();
-            $table->foreign('file_id')->references('id')->on('image_files')->onDelete('cascade');
+            $table->bigInteger('photo_id')->unsigned();
+            $table->foreign('photo_id')->references('id')->on('photos')->onDelete('cascade');
 
         });
     }
@@ -43,6 +43,6 @@ class CreateAlbumsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('albums');
-        Schema::dropIfExists('album_file');
+        Schema::dropIfExists('album_photo');
     }
 }
