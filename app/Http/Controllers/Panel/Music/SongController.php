@@ -8,7 +8,7 @@ use App\Http\Resources\Music\Song\SongShowResource;
 use App\Models\Music\Album;use App\Models\Music\Artist;use App\Models\Music\Category;use App\Models\Music\Genre;use App\Models\Music\ImageFile;use App\Models\Music\Photo;use App\Models\Music\Song;
 use Illuminate\Contracts\View\Factory;use Illuminate\Http\RedirectResponse;use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\Response;use Illuminate\View\View;use phpDocumentor\Reflection\File;
+use Illuminate\Http\Response;use Illuminate\Routing\Redirector;use Illuminate\View\View;use phpDocumentor\Reflection\File;
 
 class SongController extends Controller
 {
@@ -32,7 +32,7 @@ class SongController extends Controller
      *
      * @param Request $request
      *
-     * @return RedirectResponse|\Illuminate\Routing\Redirector|array
+     * @return RedirectResponse|Redirector|array
      */
     public function store(Request $request)
     {
@@ -138,7 +138,7 @@ class SongController extends Controller
      * @param Request $request
      * @param Song    $song
      *
-     * @return array
+     * @return RedirectResponse|Redirector|array
      */
     public function update(Request $request, Song $song)
     {

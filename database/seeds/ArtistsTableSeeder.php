@@ -22,5 +22,7 @@ class ArtistsTableSeeder extends Seeder
 
         $artist->biography = 'ebrahim hamedi';
         $artist->save();
+
+        $artist->photos()->attach(1);
     }
 }

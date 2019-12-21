@@ -23,5 +23,7 @@ class AlbumsTableSeeder extends Seeder
         $album->release_at = '2010-10-10';
         $album->number_of_track = '10';
         $album->save();
+
+        $album->photos()->attach(1);
     }
 }
