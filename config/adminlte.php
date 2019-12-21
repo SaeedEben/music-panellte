@@ -230,6 +230,11 @@ return [
                     'url'  => '/music/category',
                     'icon_color' => 'green',
                 ],
+                [
+                    'text' => 'Photo',
+                    'url'  => '/music/photo',
+                    'icon_color' => 'aqua',
+                ],
             ],
         ],
 //        ['header' => 'labels'],

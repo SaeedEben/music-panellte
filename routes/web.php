@@ -81,6 +81,10 @@ Route::group(['namespace' => 'Panel'], function () {
         Route::get('/song/list', 'SongController@list');
         Route::post('/song/restore', 'SongController@restore');
         Route::apiResource('/song', 'SongController');
+
+        // ------------------- photo ------------------------
+
+        Route::get('/photo' , 'PhotoController@show');
     });
 });
 
