@@ -11,7 +11,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="../album" method="post">
+                    <form action="../album" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -44,6 +44,10 @@
                             </div>
                             <input type="text" class="form-control" aria-label="Sizing example input"
                                    aria-describedby="inputGroup-sizing-default" name="number_of_track">
+                        </div>
+                        <div class="form-group">
+                            <label>Choose your input Album image</label>
+                            <input type="file" class="form-control-file" name="image">
                         </div>
 
 

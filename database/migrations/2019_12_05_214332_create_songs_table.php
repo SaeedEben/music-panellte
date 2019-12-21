@@ -45,7 +45,7 @@ class CreateSongsTable extends Migration
             $table->foreign('genre_id')->references('id')->on('genres');
         });
 
-        Schema::create('song_artist', function (Blueprint $table) {
+        Schema::create('artist_song', function (Blueprint $table) {
 
             $table->bigInteger('song_id')->unsigned();
             $table->foreign('song_id')->references('id')->on('songs')->onDelete('cascade');
@@ -55,13 +55,14 @@ class CreateSongsTable extends Migration
 
         });
 
-        Schema::create('song_photo', function (Blueprint $table) {
+        Schema::create('photo_song', function (Blueprint $table) {
+
+            $table->bigInteger('photo_id')->unsigned();
+            $table->foreign('photo_id')->references('id')->on('photos')->onDelete('cascade');
 
             $table->bigInteger('song_id')->unsigned();
             $table->foreign('song_id')->references('id')->on('songs')->onDelete('cascade');
 
-            $table->bigInteger('photo_id')->unsigned();
-            $table->foreign('photo_id')->references('id')->on('photos')->onDelete('cascade');
 
         });
     }
@@ -74,8 +75,8 @@ class CreateSongsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('songs');
-        Schema::dropIfExists('song_photo');
-        Schema::dropIfExists('song_artist');
+        Schema::dropIfExists('photo_song');
+        Schema::dropIfExists('artist_song');
         Schema::dropIfExists('song_genre');
     }
 }

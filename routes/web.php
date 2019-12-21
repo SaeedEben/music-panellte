@@ -79,7 +79,7 @@ Route::group(['namespace' => 'Panel'], function () {
         Route::get('/song/create', 'SongController@create');
         Route::get('/updatesong/{song}', 'SongController@edit');
         Route::get('/song/list', 'SongController@list');
-        Route::post('/song/{id}/restore', 'SongController@restore');
+        Route::post('/song/restore', 'SongController@restore');
         Route::apiResource('/song', 'SongController');
     });
 });

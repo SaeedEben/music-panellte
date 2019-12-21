@@ -11,7 +11,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="../artist" method="post">
+                    <form action="../artist" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -33,6 +33,12 @@
                             <label>Artist Biography</label>
                             <textarea class="form-control" rows="3" name="biography"></textarea>
                         </div>
+
+                        <div class="form-group">
+                            <label>Choose your Artist image</label>
+                            <input type="file" class="form-control-file" name="image">
+                        </div>
+
                         <button type="submit" class="btn btn-success"> create</button>
                     </form>
                 </div>

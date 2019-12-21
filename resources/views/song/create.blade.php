@@ -73,7 +73,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Choose your input song</label>
+                            <label>Choose your input song image</label>
                             <input type="file" class="form-control-file" name="songname">
                         </div>
 

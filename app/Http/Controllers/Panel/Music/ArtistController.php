@@ -6,7 +6,7 @@ use App\Http\Requests\Music\Category\StoreCategoryRequest;
 use App\Http\Resources\Music\Artist\ArtistIndexResource;
 use App\Http\Resources\Music\Artist\ArtistShowResource;
 use App\Models\Music\Artist;
-use Illuminate\Http\RedirectResponse;use Illuminate\Http\Request;use Illuminate\Routing\Redirector;
+use App\Models\Music\Photo;use Illuminate\Http\RedirectResponse;use Illuminate\Http\Request;use Illuminate\Routing\Redirector;
 
 /**
  * Class ArtistController
@@ -59,6 +59,18 @@ class ArtistController extends Controller
             $artist->fill($request->all());
             $artist->save();
 
+            // ------------------- attaching file image ------------------------
+
+            $esm = $request->file('image')->getClientOriginalName();
+            $storage = storage_path("app/public/music/{$esm}");
+            $request->file('image')->move('storage/musics/artists' , $esm);
+
+            $photo = new Photo();
+            $photo->image_path = $storage;
+            $photo->save();
+
+            $artist->photos()->attach($photo->id);
+
             \DB::commit();
             return redirect('music/artist');
         }catch (\Exception $exception){
@@ -80,8 +92,15 @@ class ArtistController extends Controller
      */
     public function show(Artist $artist)
     {
-//        $artist = new ArtistShowResource($artist);
-//        return view('artist.show' , compact('artist'));
+        $pure_data = new ArtistShowResource($artist->load('photos'));
+        $artist = json_decode(json_encode($pure_data->resource));
+
+        $path = explode('/' , $artist->photos[0]->image_path);
+        $path = end($path);
+        $storage = 'storage/musics/'.$path;
+
+        $artist = json_decode(json_encode($artist) , true);
+        return view('artist.show' , compact('artist' , 'storage'));
     }
 
 

@@ -8,7 +8,7 @@ use App\Http\Requests\Music\Album\UpdateAlbumRequest;
 use App\Http\Resources\Music\Album\AlbumIndexResource;
 use App\Http\Resources\Music\Album\AlbumShowResource;
 use App\Models\Music\Album;
-use Illuminate\Http\RedirectResponse;use Illuminate\Http\Request;
+use App\Models\Music\Photo;use Illuminate\Http\RedirectResponse;use Illuminate\Http\Request;
 use Illuminate\Http\Response;use Illuminate\Routing\Redirector;
 
 class AlbumController extends Controller
@@ -56,6 +56,18 @@ class AlbumController extends Controller
             $album->fill($request->all());
             $album->save();
 
+            // ------------------- attaching file image ------------------------
+
+            $esm = $request->file('image')->getClientOriginalName();
+            $storage = storage_path("app/public/music/{$esm}");
+            $request->file('image')->move('storage/musics' , $esm);
+
+            $photo = new Photo();
+            $photo->image_path = $storage;
+            $photo->save();
+
+            $album->photos()->attach($photo->id);
+
             \DB::commit();
 
             return redirect('music/album');
@@ -79,7 +91,15 @@ class AlbumController extends Controller
      */
     public function show(Album $album)
     {
-        return new AlbumShowResource($album);
+        $pure = new AlbumShowResource($album->load('photos'));
+        $album = json_decode(json_encode($pure->resource));
+
+        $path = explode('/' , $album->photos[0]->image_path);
+        $path = end($path);
+        $storage = 'storage/musics/'.$path;
+
+        $album = json_decode(json_encode($album) , true);
+        return view('album.show' , compact('album' , 'storage'));
     }
 
     /**

@@ -28,6 +28,7 @@ class SongIndexResource extends JsonResource
             'name_en'    => $this->getTranslation('name', 'en'),
             'release_at' => $this->release_at,
             'duration'   => $this->duration,
+            'lyric'      => $this->lyric,
         ];
     }
 }

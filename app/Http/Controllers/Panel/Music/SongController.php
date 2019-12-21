@@ -5,17 +5,17 @@ namespace App\Http\Controllers\Panel\Music;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Music\Song\SongIndexResource;
 use App\Http\Resources\Music\Song\SongShowResource;
-use App\Models\Music\Album;use App\Models\Music\Artist;use App\Models\Music\Category;use App\Models\Music\Genre;use App\Models\Music\ImageFile;use App\Models\Music\Song;
-use Illuminate\Http\Request;
+use App\Models\Music\Album;use App\Models\Music\Artist;use App\Models\Music\Category;use App\Models\Music\Genre;use App\Models\Music\ImageFile;use App\Models\Music\Photo;use App\Models\Music\Song;
+use Illuminate\Contracts\View\Factory;use Illuminate\Http\RedirectResponse;use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\Response;use phpDocumentor\Reflection\File;
+use Illuminate\Http\Response;use Illuminate\View\View;use phpDocumentor\Reflection\File;
 
 class SongController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -32,7 +32,7 @@ class SongController extends Controller
      *
      * @param Request $request
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|array
+     * @return RedirectResponse|\Illuminate\Routing\Redirector|array
      */
     public function store(Request $request)
     {
@@ -66,11 +66,11 @@ class SongController extends Controller
             $storage = storage_path("app/public/music/{$esm}");
             $request->file('songname')->move('storage/musics' , $esm);
 
-            $file = new ImageFile();
-            $file->image_path = $storage;
-            $file->save();
+            $photo = new Photo();
+            $photo->image_path = $storage;
+            $photo->save();
 
-            $song->files()->attach($file->id);
+            $song->photos()->attach($photo->id);
 
 
             // ------------------- attaching genre ------------------------
@@ -81,7 +81,7 @@ class SongController extends Controller
             // ------------------- attaching artist ------------------------
 
             $artid = explode('.' , $request->artist);
-            $song->genres()->attach($artid[0]);
+            $song->artists()->attach($artid[0]);
 
 
             \DB::commit();
@@ -102,11 +102,34 @@ class SongController extends Controller
      *
      * @param Song $song
      *
-     * @return SongShowResource
+     * @return Factory|View
      */
     public function show(Song $song)
     {
-        return new SongShowResource($song);
+        $pure_data = new SongShowResource($song->load('photos' , 'artists' , 'category' , 'genres' , 'album'));
+        $song = json_decode(json_encode($pure_data->resource));
+        // ------------------- image path ------------------------
+
+        $path = explode('/' , $song->photos[0]->image_path);
+        $path = end($path);
+        $storage = 'storage/musics/'.$path;
+        // ------------------- Relations ------------------------
+        $category = $song->category;
+        $genres = $song->genres;
+        $artists = $song->artists;
+        $album = $song->album;
+
+
+        $song = json_decode(json_encode($song) , true);
+        return view('song.show',compact('song' , 'storage' , 'category' , 'genres' , 'album' , 'artists'));
+    }
+
+
+    public function edit(Song $song)
+    {
+        $obj = new SongIndexResource(($song));
+        $song = json_decode(json_encode($obj),true);
+        return view('song.update' , compact('song'));
     }
 
     /**
@@ -131,10 +154,7 @@ class SongController extends Controller
             $song->save();
 
             \DB::commit();
-            return [
-                'success' => true,
-                'message' => trans('responses.panel.music.message.update'),
-            ];
+            return redirect('music/song');
         }catch (\Exception $exception){
             \DB::rollBack();
 
@@ -150,7 +170,7 @@ class SongController extends Controller
      *
      * @param Song $song
      *
-     * @return array
+     * @return RedirectResponse|array
      * @throws \Exception
      */
     public function destroy(Song $song)
@@ -158,10 +178,7 @@ class SongController extends Controller
         try {
             $song->delete();
 
-            return [
-                'success' => true,
-                'message' => trans('responses.panel.music.message.delete'),
-            ];
+            return redirect()->back();
         }catch (\Exception $exception){
 
             return [
@@ -174,20 +191,16 @@ class SongController extends Controller
     /**
      * Restore the specified resource from storage.
      *
-     * @param $id
+     * @param Request $request
      *
-     * @return array
-     * @throws \Exception
+     * @return RedirectResponse|array
      */
-    public function restore($id)
+    public function restore(Request $request)
     {
         try {
-            Song::onlyTrashed()->findOrFail($id)->restore();
+            Song::onlyTrashed()->findOrFail($request->id)->restore();
 
-            return [
-                'success' => true,
-                'message' => trans('responses.panel.music.message.restore'),
-            ];
+            return redirect()->back();
         }catch (\Exception $exception){
 
             return [
@@ -205,7 +218,7 @@ class SongController extends Controller
     /**
      * Display the specified resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
