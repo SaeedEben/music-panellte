@@ -127,9 +127,18 @@ class SongController extends Controller
 
     public function edit(Song $song)
     {
+        $pure_data = new SongShowResource($song->load('photos'));
+        $art = json_decode(json_encode($pure_data->resource));
+
+        $path = explode('/' , $art->photos[0]->image_path);
+        $path = end($path);
+        $storage = 'storage/musics/'.$path;
+
+
+
         $obj = new SongIndexResource(($song));
         $song = json_decode(json_encode($obj),true);
-        return view('song.update' , compact('song'));
+        return view('song.update' , compact('song' , 'storage'));
     }
 
     /**
@@ -152,6 +161,23 @@ class SongController extends Controller
             $song->setTranslations('name', $translation);
             $song->fill($request->all());
             $song->save();
+
+            if ($request->song_image){
+                $image = $song->load('photos');
+                $image = json_decode(json_encode($image->photos),true);
+                $song->photos()->detach($image[0]['id']);
+
+
+                $e = $request->file('song_image')->getClientOriginalName();
+                $storage = storage_path("app/public/music/{$e}");
+                $request->file('song_image')->move('storage/musics' , $e);
+
+                $photo = new Photo();
+                $photo->image_path = $storage;
+                $photo->save();
+
+                $song->photos()->attach($photo->id);
+            }
 
             \DB::commit();
             return redirect('music/song');

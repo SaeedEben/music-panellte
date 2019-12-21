@@ -29,9 +29,16 @@ class AlbumController extends Controller
 
     public function edit(Album $album)
     {
+        $pure_data = new AlbumShowResource($album->load('photos'));
+        $art = json_decode(json_encode($pure_data->resource));
+
+        $path = explode('/' , $art->photos[0]->image_path);
+        $path = end($path);
+        $storage = 'storage/musics/'.$path;
+
         $obj = new AlbumIndexResource($album);
         $album = json_decode(json_encode($obj),true);
-        return view('album.update' , compact('album'));
+        return view('album.update' , compact('album' , 'storage'));
     }
 
     /**
@@ -122,6 +129,26 @@ class AlbumController extends Controller
             $album->setTranslations('name', $translations);
             $album->fill($request->all());
             $album->save();
+
+            // ------------------- change image ------------------------
+
+            if ($request->album_image){
+                $image = $album->load('photos');
+                $image = json_decode(json_encode($image->photos),true);
+                $album->photos()->detach($image[0]['id']);
+
+
+                $e = $request->file('album_image')->getClientOriginalName();
+                $storage = storage_path("app/public/music/{$e}");
+                $request->file('album_image')->move('storage/musics' , $e);
+
+                $photo = new Photo();
+                $photo->image_path = $storage;
+                $photo->save();
+
+                $album->photos()->attach($photo->id);
+            }
+
 
             \DB::commit();
 

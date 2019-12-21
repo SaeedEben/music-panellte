@@ -63,7 +63,7 @@ class ArtistController extends Controller
 
             $esm = $request->file('image')->getClientOriginalName();
             $storage = storage_path("app/public/music/{$esm}");
-            $request->file('image')->move('storage/musics/artists' , $esm);
+            $request->file('image')->move('storage/musics' , $esm);
 
             $photo = new Photo();
             $photo->image_path = $storage;
@@ -106,9 +106,17 @@ class ArtistController extends Controller
 
     public function edit(Artist $artist)
     {
+        $pure_data = new ArtistShowResource($artist->load('photos'));
+        $art = json_decode(json_encode($pure_data->resource));
+
+        $path = explode('/' , $art->photos[0]->image_path);
+        $path = end($path);
+        $storage = 'storage/musics/'.$path;
+
+
         $obj = new ArtistIndexResource($artist);
         $artist = json_decode(json_encode($obj),true);
-        return view('artist.update' , compact('artist'));
+        return view('artist.update' , compact('artist' , 'storage'));
     }
 
 
@@ -134,6 +142,25 @@ class ArtistController extends Controller
 
             $artist->fill($request->all());
             $artist->save();
+
+            // ------------------- change image ------------------------
+
+            if ($request->image){
+                $image = $artist->load('photos');
+                $image = json_decode(json_encode($image->photos),true);
+                $artist->photos()->detach($image[0]['id']);
+
+
+                $e = $request->file('image')->getClientOriginalName();
+                $storage = storage_path("app/public/music/{$e}");
+                $request->file('image')->move('storage/musics' , $e);
+
+                $photo = new Photo();
+                $photo->image_path = $storage;
+                $photo->save();
+
+                $artist->photos()->attach($photo->id);
+            }
 
             \DB::commit();
             return redirect('music/artist');

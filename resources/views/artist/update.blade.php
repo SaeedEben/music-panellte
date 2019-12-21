@@ -11,7 +11,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="../artist/{{$artist['id']}}" method="post">
+                    <form action="../artist/{{$artist['id']}}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <div class="input-group mb-3">
@@ -34,8 +34,17 @@
                             <label>Artist Biography</label>
                             <textarea class="form-control" rows="3" name="biography">{{$artist['biography']}}</textarea>
                         </div>
+
+                        <div class="form-group">
+                            <label>for change Artist image please choose some</label>
+                            <input type="file" class="form-control-file" name="image">
+                        </div>
                         <button type="submit" class="btn btn-success"> update</button>
                     </form>
+                    <br>
+                    <div style="width: 400px; height: 400px; float: right;">
+                        <img src="{{ asset($storage )}}" class="img-thumbnail">
+                    </div>
                 </div>
             </div>
         </div>

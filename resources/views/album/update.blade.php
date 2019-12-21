@@ -11,7 +11,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="/music/album/{{$album['id']}}" method="post">
+                    <form action="/music/album/{{$album['id']}}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <div class="input-group mb-3">
@@ -50,9 +50,18 @@
                                    value="{{$album['number_of_track']}}">
                         </div>
 
+                        <div class="form-group">
+                            <label>Choose your input Album image</label>
+                            <input type="file" class="form-control-file" name="album_image">
+                        </div>
+
 
                         <button type="submit" class="btn btn-success"> update</button>
                     </form>
+                    <br>
+                    <div style="width: 400px; height: 400px; float: right;">
+                        <img src="{{ asset($storage )}}" class="img-thumbnail">
+                    </div>
                 </div>
             </div>
         </div>

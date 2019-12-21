@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <div class="col-md-10 d-flex justify-content-center mb-5">
 
-                        <form style="margin-right: 50px;" method="post" action="../song/{{$song['id']}}">
+                        <form style="margin-right: 50px;" method="post" action="../song/{{$song['id']}}" enctype="multipart/form-data">
                             @csrf
                             @method('put')
                             <div class="row">
@@ -34,11 +34,20 @@
                                     <textarea class="form-control" type="text"
                                               style="margin-top: 10px;" name="lyric">{{$song['lyric']}}</textarea>
                                     <br>
+                                    <div class="form-group">
+                                        <label>Choose your input song image</label>
+                                        <input type="file" class="form-control-file" name="song_image">
+                                    </div>
 
                                     <button type="submit" class="btn btn-success"> Update </button>
                                 </div>
                             </div>
                         </form>
+                        <br>
+
+                        <div style="width: 400px; height: 400px; margin-right: 100px;">
+                            <img src="{{ asset($storage )}}" class="img-thumbnail">
+                        </div>
                     </div>
                 </div>
             </div>
